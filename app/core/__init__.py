@@ -102,6 +102,8 @@ class NovelAiInference(BaseModel):
             raise ValueError("Invalid size.")
         if self.parameters.n_samples != 1:
             raise ValueError("n_samples must be 1.")
+        if self.parameters.sampler is None:
+            self.parameters.sampler = "k_euler"
         if self.parameters.sampler not in self.valid_sampler():
             raise ValueError("Invalid sampler.")
         if self.access_token is None and os.environ.get("NOVEL_AI_TOKEN"):
@@ -125,7 +127,9 @@ class NovelAiInference(BaseModel):
               seed: Optional[int] = None,
               steps: Optional[int] = None,
               cfg_rescale: Optional[int] = None,
-              sampler: Optional[str] = None,
+              sampler: Optional[str] = "k_dpmpp_2m",
+              width: Optional[int] = 832,
+              height: Optional[int] = 1216,
               ):
         """
         正负面, step, cfg, 采样方式, seed
@@ -135,6 +139,8 @@ class NovelAiInference(BaseModel):
         :param steps:
         :param cfg_rescale:
         :param sampler:
+        :param width:
+        :param height:
         :return: self
         """
         param = {
@@ -143,7 +149,11 @@ class NovelAiInference(BaseModel):
             "steps": steps,
             "cfg_rescale": cfg_rescale,
             "sampler": sampler,
+            "width": width,
+            "height": height,
         }
+        # 清理空值
+        param = {k: v for k, v in param.items() if v is not None}
         return cls(
             input=prompt,
             parameters=cls.Params(**param)

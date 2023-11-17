@@ -129,13 +129,15 @@ class BotRunner(object):
                     prompt=parsed.query("input"),
                     negative_prompt=parsed.query("negative_prompt"),
                     seed=parsed.query("seed"),
-                    steps=parsed.query("steps"),
+                    steps=28,
                     cfg_rescale=parsed.query("cfg_rescale"),
                     sampler=parsed.query("sampler"),
+                    width=parsed.query("width"),
+                    height=parsed.query("height"),
                 )
                 result = await infer()
             except ValidationError as e:
-                logger.error(e)
+                logger.exception(e)
                 return await bot.reply_to(message, f"🥕 Invalid parameters...")
             except ServerError as e:
                 logger.exception(e)
