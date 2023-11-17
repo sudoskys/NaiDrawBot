@@ -165,6 +165,7 @@ class NovelAiInference(BaseModel):
                     headers=headers,
                     timeout=self.request_timeout or 30.0,
                 )
+                logger.info(f"request_data: {request_data}")
                 if response.headers.get('Content-Type') != 'application/x-zip-compressed':
                     logger.error(f"response: {response.text}")
                     raise ServerError(msg=f"Unexpected content type: {response.headers.get('Content-Type')}")
