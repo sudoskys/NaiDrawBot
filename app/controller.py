@@ -125,7 +125,14 @@ class BotRunner(object):
                 f"--message:{message.id} --time:{int(time.time())}"
             )
             try:
-                infer = NovelAiInference(**parsed.all_matched_args)
+                infer = NovelAiInference.build(
+                    prompt=parsed.query("input"),
+                    negative_prompt=parsed.query("negative_prompt"),
+                    seed=parsed.query("seed"),
+                    steps=parsed.query("steps"),
+                    cfg_rescale=parsed.query("cfg_rescale"),
+                    sampler=parsed.query("sampler"),
+                )
                 result = await infer()
             except ValidationError as e:
                 logger.error(e)

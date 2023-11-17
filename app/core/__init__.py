@@ -118,7 +118,8 @@ class NovelAiInference(BaseModel):
     def update_params(self, **kwargs) -> "NovelAiInference":
         return NovelAiInference(**self.model_dump(), **kwargs)
 
-    def build(self, *,
+    @classmethod
+    def build(cls, *,
               prompt: str,
               negative_prompt: Optional[str] = None,
               seed: Optional[int] = None,
@@ -136,18 +137,17 @@ class NovelAiInference(BaseModel):
         :param sampler:
         :return: self
         """
-        self.input = prompt
-        if negative_prompt:
-            self.parameters.negative_prompt = negative_prompt
-        if seed:
-            self.parameters.seed = seed
-        if steps:
-            self.parameters.steps = steps
-        if cfg_rescale:
-            self.parameters.cfg_rescale = cfg_rescale
-        if sampler:
-            self.parameters.sampler = sampler
-        return self
+        param = {
+            "negative_prompt": negative_prompt,
+            "seed": seed,
+            "steps": steps,
+            "cfg_rescale": cfg_rescale,
+            "sampler": sampler,
+        }
+        return cls(
+            input=prompt,
+            parameters=cls.Params(**param)
+        )
 
     async def __call__(self) -> NaiResult:
         request_data = self.model_dump()
