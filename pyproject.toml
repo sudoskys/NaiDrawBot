@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "naidrawer"
+version = "0.1.0"
+description = "Draws a NAI card from a given NAI API"
+authors = ["sudoskys <coldlando@hotmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pydantic = "^2.5.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
