@@ -49,7 +49,7 @@ class NovelAiInference(BaseModel):
         uncond_scale: Optional[int] = 1
 
     action: Optional[str] = "generate"
-    input: Optional[str] = "1girl, best quality, amazing quality, very aesthetic, absurdres"
+    input: str = "1girl, best quality, amazing quality, very aesthetic, absurdres"
     model: Optional[str] = "nai-diffusion-3"
     parameters: Params = Params()
     model_config = ConfigDict(extra="ignore")
