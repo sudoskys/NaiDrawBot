@@ -84,8 +84,7 @@ class BotRunner(object):
                     formatting.mitalic("Draw something and generate text. Can be used in a group chat."),
                     formatting.mitalic(
                         "If using the bot within a group, it will use the parameters from the last generation.")
-                ),
-                parse_mode="MarkdownV2"
+                )
             )
 
         @bot.message_handler(
@@ -112,8 +111,7 @@ class BotRunner(object):
             if not parsed.matched:
                 return await bot.reply_to(
                     message,
-                    parsed.error_info,
-                    parse_mode="MarkdownV2"
+                    parsed.error_info
                 )
             logger.info(
                 f"🍺 Group {message.from_user.id}:{message.chat.id} "
@@ -149,8 +147,7 @@ class BotRunner(object):
             else:
                 return await bot.reply_to(
                     message,
-                    "🥕 No result",
-                    parse_mode="MarkdownV2"
+                    "🥕 No result"
                 )
 
         async def main():
