@@ -84,7 +84,8 @@ class BotRunner(object):
                     formatting.mitalic("Draw something and generate text. Can be used in a group chat."),
                     formatting.mitalic(
                         "If using the bot within a group, it will use the parameters from the last generation.")
-                )
+                ),
+                parse_mode="MarkdownV2"
             )
 
         @bot.message_handler(
