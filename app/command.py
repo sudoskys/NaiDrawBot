@@ -10,7 +10,7 @@ from app.core import NovelAiInference
 
 DrawCommand = Alconna(
     "/draw",
-    Args['prompt', str],
+    Args['input', str],
     Option("--negative_prompt|-neg", Args.negative_prompt[str], help_text="设置负面提示"),
     Option("--seed|-s", Args['seed', int], help_text="设置随机种子"),
     # Option("--steps|-st", Args['steps', Annotated[int, lambda x: x < 50]], help_text="设置步数"),
