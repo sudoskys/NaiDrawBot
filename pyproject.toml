@@ -20,6 +20,7 @@ arclet-alconna = "^1.7.34"
 boto3 = "^1.29.2"
 asgiref = "^3.7.2"
 aiohttp = "^3.8.6"
+pillow = "^10.1.0"
 
 
 [build-system]
