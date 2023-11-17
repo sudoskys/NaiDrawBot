@@ -16,7 +16,7 @@ from telebot.async_telebot import AsyncTeleBot
 from telebot.asyncio_storage import StateMemoryStorage
 
 from .command import DrawCommand
-from .core import NovelAiInference, ServerError, NaiResult
+from .core import NovelAiInference, ServerError, NaiResult, CheckError
 from .schema import BotSetting, AwsSetting
 from .utils import parse_command
 
@@ -136,6 +136,9 @@ class BotRunner(object):
                     height=parsed.query("height"),
                 )
                 result = await infer()
+            except CheckError as e:
+                logger.exception(e)
+                return await bot.reply_to(message, str(e))
             except ValidationError as e:
                 logger.exception(e)
                 return await bot.reply_to(message, f"🥕 Invalid parameters...")

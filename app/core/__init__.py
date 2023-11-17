@@ -21,6 +21,10 @@ from .schema import NaiResult
 load_dotenv()
 
 
+class CheckError(Exception):
+    pass
+
+
 class NovelAiInference(BaseModel):
     _endpoint: Optional[str] = PrivateAttr("https://api.novelai.net")
     _access_token: Optional[str] = PrivateAttr(None)
@@ -97,19 +101,19 @@ class NovelAiInference(BaseModel):
     @model_validator(mode="after")
     def validate_param(self):
         if self.parameters.steps != 28:
-            raise ValueError("steps must be 28.")
-        if self.parameters.width > 1024 or self.parameters.height > 1216:
-            raise ValueError("Invalid size.")
+            raise CheckError("steps must be 28.")
+        if (self.parameters.width, self.parameters.height) not in self.valid_wh():
+            raise CheckError("Invalid size, must be one of 832x1216, 1216x832, 1024x1024")
         if self.parameters.n_samples != 1:
-            raise ValueError("n_samples must be 1.")
+            raise CheckError("n_samples must be 1.")
         if self.parameters.sampler is None:
             self.parameters.sampler = "k_euler"
         if self.parameters.sampler not in self.valid_sampler():
-            raise ValueError("Invalid sampler.")
+            raise CheckError("Invalid sampler.")
         if self.access_token is None and os.environ.get("NOVEL_AI_TOKEN"):
             self.access_token = os.environ.get("NOVEL_AI_TOKEN")
         else:
-            raise ValueError(".env `NOVEL_AI_TOKEN` is required.")
+            raise CheckError(".env `NOVEL_AI_TOKEN` is required.")
         if os.environ.get("NOVEL_AI_ENDPOINT"):
             self.endpoint = os.environ.get("NOVEL_AI_ENDPOINT")
         return self
