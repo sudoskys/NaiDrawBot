@@ -8,7 +8,17 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pydantic = "^2.5.1"
+pydantic = "^2.0.0"
+pytelegrambotapi = "^4.14.0"
+pydantic-settings = "^2.1.0"
+loguru = "^0.7.0"
+python-dotenv = "^1.0.0"
+elara = "^0.5.5"
+httpx = "^0.25.1"
+shortuuid = "^1.0.11"
+arclet-alconna = "^1.7.34"
+boto3 = "^1.29.2"
+asgiref = "^3.7.2"
 
 
 [build-system]
