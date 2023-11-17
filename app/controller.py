@@ -112,8 +112,10 @@ class BotRunner(object):
                 # 将 - 之前的内容用括号包裹
                 flag = body[body.find(" -"):]
                 body = body[:body.find(" -")]
-                body = f"'{body}'{flag}"
+                body = f"'{body[5:]}'{flag}"
                 message_text = f"/draw {body}"
+            else:
+                message_text = f"/draw '{body}'"
             parsed = DrawCommand.parse(message_text)
             if not parsed.matched:
                 return await bot.reply_to(
