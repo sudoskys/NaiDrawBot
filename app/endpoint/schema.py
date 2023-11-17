@@ -3,5 +3,4 @@
 # @Author  : sudoskys
 # @File    : schema.py
 # @Software: PyCharm
-
-class
+from typing import Optional
