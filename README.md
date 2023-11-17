@@ -1,6 +1,9 @@
 # NaiDrawBot
 
-A simple draw bot
+```shell
+cp .env.exp .env
+nano .env
+```
 
 ```shell
 pip install poetry
