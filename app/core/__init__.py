@@ -190,7 +190,7 @@ class NovelAiInference(BaseModel):
                     except Exception:
                         raise ServerError(msg=f"Unexpected content type: {response.headers.get('Content-Type')}")
                     else:
-                        raise ServerError(msg=message)
+                        raise ServerError(msg=f"[Nai Server]{message}")
                 response.raise_for_status()
                 zip_file = ZipFile(BytesIO(response.content))
                 _return_contents = []
