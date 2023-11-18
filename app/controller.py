@@ -155,7 +155,13 @@ class BotRunner(object):
                     await bot.send_document(
                         chat_id=message.chat.id,
                         document=file,
-                        caption=parsed.query("prompt"),
+                        caption=formatting.format_text(
+                            formatting.mbold("🥕 Prompt"),
+                            formatting.mcode(parsed.query("input")),
+                            formatting.mbold("🥕 Negative Prompt"),
+                            formatting.mcode(parsed.query("negative_prompt")),
+                            separator="\n"
+                        ),
                         reply_to_message_id=message.message_id
                     )
                     if AwsSetting.available:
