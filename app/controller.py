@@ -162,7 +162,8 @@ class BotRunner(object):
                             formatting.mcode(parsed.query("negative_prompt")),
                             separator="\n"
                         ),
-                        reply_to_message_id=message.message_id
+                        reply_to_message_id=message.message_id,
+                        parse_mode="MarkdownV2"
                     )
                     if AwsSetting.available:
                         await upload_to_aws(
