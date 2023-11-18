@@ -17,4 +17,8 @@ class NaiResult(BaseModel):
     files: List[Tuple[str, bytes]] = None
 
     def query_params(self, key: str, default=None):
-        return self.meta.raw_request.get(key, default)
+        if isinstance(self.meta.raw_request, str):
+            return default
+        if isinstance(self.meta.raw_request.get("parameters"), dict):
+            return self.meta.raw_request.get("parameters").get(key, default)
+        return default
