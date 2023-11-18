@@ -27,7 +27,7 @@ DrawCommand = Alconna(
 
 if __name__ == "__main__":
     sm = DrawCommand.parse(
-        "/draw --negative_prompt 负面提示 --seed 123 --cfg_rescale 123 --sampler k_dpmpp_2m --width 123 --height 123 123"
+        "/draw sdas -neg 负面提示 --seed 123 --cfg_rescale 123 --sampler k_dpmpp_2m --width 123 --height 123"
     )
     print(DrawCommand.get_help())
     print(sm)

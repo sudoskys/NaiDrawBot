@@ -15,3 +15,6 @@ class NaiResult(BaseModel):
 
     meta: RequestParams
     files: List[Tuple[str, bytes]] = None
+
+    def query_params(self, key: str, default=None):
+        return self.meta.raw_request.get(key, default)
