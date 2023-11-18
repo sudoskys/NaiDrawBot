@@ -43,8 +43,11 @@ class NovelAiInference(BaseModel):
         controlnet_strength: Optional[int] = 1
         dynamic_thresholding: Optional[bool] = False
         legacy: Optional[bool] = False
-        negative_prompt: Optional[
-            str] = "nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract]"
+        negative_prompt: Optional[str] = (
+            "nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, "
+            "jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature,"
+            " extra digits, artistic error, username, scan, [abstract]"
+        )
         noise_schedule: Optional[str] = "native"
         qualityToggle: Optional[bool] = True
         seed: Optional[int] = 0
@@ -182,7 +185,12 @@ class NovelAiInference(BaseModel):
                 logger.info(f"request_data: {request_data}")
                 if response.headers.get('Content-Type') != 'application/x-zip-compressed':
                     logger.error(f"response: {response.text}")
-                    raise ServerError(msg=f"Unexpected content type: {response.headers.get('Content-Type')}")
+                    try:
+                        message = response.json()["message"]
+                    except Exception:
+                        raise ServerError(msg=f"Unexpected content type: {response.headers.get('Content-Type')}")
+                    else:
+                        raise ServerError(msg=message)
                 response.raise_for_status()
                 zip_file = ZipFile(BytesIO(response.content))
                 _return_contents = []
