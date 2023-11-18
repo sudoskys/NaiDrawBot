@@ -156,10 +156,10 @@ class BotRunner(object):
                         chat_id=message.chat.id,
                         document=file,
                         caption=formatting.format_text(
-                            formatting.mbold("🥕 Negative Prompt"),
-                            formatting.mcode(result.query_params("negative_prompt", "")),
                             formatting.mbold("🥕 Sampler"),
                             formatting.mcode(result.query_params("sampler", "")),
+                            formatting.mbold("🥕 Seed"),
+                            formatting.mcode(result.query_params("seed", "")),
                             separator="\n"
                         ),
                         reply_to_message_id=message.message_id,
