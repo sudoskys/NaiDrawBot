@@ -155,16 +155,19 @@ class BotRunner(object):
                     await bot.send_document(
                         chat_id=message.chat.id,
                         document=file,
-                        caption=formatting.format_text(
+                        caption=None,
+                        reply_to_message_id=message.message_id,
+                        parse_mode="MarkdownV2"
+                    )
+                    """
+                        formatting.format_text(
                             formatting.mbold("🥕 Sampler"),
                             formatting.mcode(result.query_params("sampler", "")),
                             formatting.mbold("🥕 Seed"),
                             formatting.mcode(result.query_params("seed", "")),
                             separator="\n"
                         ),
-                        reply_to_message_id=message.message_id,
-                        parse_mode="MarkdownV2"
-                    )
+                    """
                     if AwsSetting.available:
                         await upload_to_aws(
                             file_bytes=BytesIO(file[1]),
