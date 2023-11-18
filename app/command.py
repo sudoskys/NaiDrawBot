@@ -26,12 +26,20 @@ DrawCommand = Alconna(
 )
 
 if __name__ == "__main__":
-    sm = DrawCommand.parse(
-        "/draw sdas -neg 负面提示 --seed 123 --cfg_rescale 123 --sampler k_dpmpp_2m --width 123 --height 123"
-    )
-    print(DrawCommand.get_help())
-    print(sm)
-    print(sm.all_matched_args)
+    body = "aaaaa -nefg aaaa -s 123 -st 123 -cfg 123 -sam k_dpmpp_2m -wi 123 -he 123"
+    if body.find(" -") != -1:
+        # 将 - 之前的内容用括号包裹
+        flag = body[body.find(" -"):]
+        body = body[:body.find(" -")]
+        body = f"'{body}'{flag}"
+        message_text = f"/draw {body}"
+    else:
+        message_text = f"/draw '{body}'"
+    print(message_text)
+    command = DrawCommand.parse(message_text)
+    # print(DrawCommand.get_help())
+    print(command)
+    print(command.all_matched_args)
     dov = DrawCommand.parse("/draw aaaaa -nefg aaaa -s 123 -st 123 -cfg 123 -sam k_dpmpp_2m -wi 123 -he 123")
     print(dov)
     print(dov.error_info)

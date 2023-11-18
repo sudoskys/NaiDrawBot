@@ -112,7 +112,7 @@ class BotRunner(object):
                 # 将 - 之前的内容用括号包裹
                 flag = body[body.find(" -"):]
                 body = body[:body.find(" -")]
-                body = f"'{body[5:]}'{flag}"
+                body = f"'{body}'{flag}"
                 message_text = f"/draw {body}"
             else:
                 message_text = f"/draw '{body}'"
